@@ -1,0 +1,25 @@
+# LaTeX - zakladni docasne soubory
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.pdf
+
+# LaTeX - bibliografie
+*.bbl
+*.blg
+
+# LaTeX - VUT sablona (seznamy obsahu, obrazku, tabulek, zkratek)
+*.toc
+*.toa
+*.loa
+*.lof
+*.lol
+*.lot
+
+# ESP-IDF docasne soubory
+build/
+sdkconfig.old
+managed_components/
