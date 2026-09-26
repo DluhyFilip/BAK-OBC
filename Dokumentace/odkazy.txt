@@ -1,0 +1,21 @@
+https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/freertos_idf.html
+
+https://www.freertos.org/media/2018/161204_Mastering_the_FreeRTOS_Real_Time_Kernel-A_Hands-On_Tutorial_Guide.pdf
+
+https://www.youtube.com/watch?v=-6BBtYKekRw
+
+https://github.com/olikraus/u8g2/tree/e52b1b52e6a8fbff193109bd4e9c72d9a1d32e4f
+
+https://github.com/ltkdt/LTKDT-s_small_projects/blob/master/esp_idf%20u8g2%20oled/main.c
+
+https://github.com/mkfrey/u8g2-hal-esp-idf
+
+https://www.youtube.com/watch?v=GzrW6N1Gcrw
+
+https://dratek.cz/docs/produkty/1/1489/1488979094.pdf
+
+https://github.com/ltkdt/LTKDT-s_small_projects/blob/master/esp_idf_interrupt/main.c
+
+https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/esp_timer.html
+
+kniha skoda felicia jak na to

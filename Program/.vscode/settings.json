@@ -1,3 +1,17 @@
 {
-    "idf.currentSetup": "/home/filipdluhy/.espressif/v6.1/esp-idf"
+  "idf.currentSetup": "/home/filipdluhy/.espressif/v6.1/esp-idf",
+  "idf.openOcdConfigs": [
+    "board/esp32-wrover-kit-3.3v.cfg"
+  ],
+  "idf.customExtraVars": {
+    "IDF_TARGET": "esp32"
+  },
+  "clangd.path": "/home/filipdluhy/.espressif/tools/esp-clangd/esp-21.1.3_20260408/esp-clangd/bin/clangd",
+  "clangd.arguments": [
+    "--background-index",
+    "--query-driver=**",
+    "--compile-commands-dir=/home/filipdluhy/Dokumenty/BAK/Program/build"
+  ],
+  "idf.port": "/dev/ttyUSB0",
+  "idf.flashType": "UART"
 }

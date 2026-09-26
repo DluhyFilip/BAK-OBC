@@ -23,3 +23,24 @@
 build/
 sdkconfig.old
 managed_components/
+.vscode/
+
+#kicad
+*.kicad_prl
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*.bak
+*~
+_autosave-*
+*.tmp
+*.lck
+
+# Složky automatických záloh
+*-backups/
+
+# Volitelné: ignorování vygenerovaných výrobních dat (odkomentuj dle potřeby)
+/gerbers/
+*.pdf
+*.drl
+*.gbr
+.history/
