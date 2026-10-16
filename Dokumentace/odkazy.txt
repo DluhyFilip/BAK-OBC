@@ -19,3 +19,5 @@ https://github.com/ltkdt/LTKDT-s_small_projects/blob/master/esp_idf_interrupt/ma
 https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/esp_timer.html
 
 kniha skoda felicia jak na to
+
+https://jedla.4fan.cz/auto/palubni_pocitac/palubak.php

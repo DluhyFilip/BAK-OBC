@@ -2,20 +2,37 @@
 \phantomsection
 \addcontentsline{toc}{chapter}{Úvod}
 
+Semestrální práce se zabývá návrhem a implementací palubního počítače pro vozidla bez centrální datové sběrnice. Konkrétním vozidlem, ve kterém bude počítač instalován, je Škoda Felicia 1.3 MPI.
 
-Úvod studentské práce, např\,\dots
+V současné době je palubní počítač standardem v nových vozidlech. Díky rozmachu elektromobility a vývoji počítačových technologií se palubní počítače s informacemi o provozu vozidla staly běžnou výbavou.
+Starší vozidla, jako třeba Škoda Felicia, tuto možnost měla pouze jako příplatkovou. Vzhledem k tehdejší cenovce palubního počítače APRI TC-6 (případně TC-P6 nebo TM-3 pro dieselové motory) jím bylo vybaveno pouze minimum vozidel a dnes jsou spíše raritou.
 
-Nečíslovaná kapitola Úvod obsahuje \uv{seznámení} čtenáře s~problematikou práce.
-Typicky se zde uvádí:
-(a) do jaké tematické oblasti práce spadá, (b) co jsou hlavní cíle celé práce a (c) jakým způsobem jich bylo dosaženo.
-Úvod zpravidla nepřesahuje jednu stranu.
-Poslední odstavec Úvodu standardně představuje základní strukturu celého dokumentu.
+Jelikož se starší vozidla těší stále velké popularitě v komunitě nadšenců, rozhodl jsem se takový palubní počítač navrhnout a implementovat.
 
-Tato práce se věnuje oblasti \acs{DSP} (\acl{DSP}), zejména jevům, které nastanou při nedodržení Nyquistovy podmínky pro \ac{symfvz}.%
-\footnote{Tato věta je pouze ukázkou použití příkazů pro sazbu zkratek.}
+Základním kamenem pro palubní počítač ve starším voze je mikrokontrolér, který bude zajišťovat sběr dat a také jejich zpracování a prezentaci uživateli. 
+V nových vozech je pro toto přizpůsoben řídící systém motoru, který veškerá data ze snímačů sbírá a následně je poskytuje pro zpracovaní přes CAN.\footnote{CAN - centrální datová sběrnice (controller area network)}
 
-Šablona je nastavena na \emph{dvoustranný tisk}.
-Nebuďte překvapeni, že ve vzniklém PDF jsou volné stránky.
-Je to proto, aby důležité stránky jako např.\ začátky kapitol začínaly po vytisknutí a svázání vždy na pravé straně.
-%
-Pokud máte nějaký závažný důvod sázet (a~zejména tisknout) jednostranně, nezapomeňte si přepnout volbu \texttt{twoside} na \texttt{oneside}!
+Cílem práce je navrhnout a realizovat hardwarové měřicí obvody pro sběr telemetrických dat z vozidla, konkrétně pro snímání rychlosti, otáček motoru, teploty okolí vozidla, provozních teplot motoru a dalších parametrů.
+
+Následující text je rozdělen na dvě hlavní části – teoretickou a praktickou. Teoretická část se věnuje nezbytné rešerši hardwarových komponent, rozboru problematiky palubních systémů obecně a bezpečnosti uživatele při užívání počítače v provozu.
+Praktická část následně popisuje samotnou realizaci projektu; zahrnuje návrh měřicích obvodů, tvorbu uživatelského rozhraní na základě externího grafického návrhu,
+programovou implementaci a závěrečné testování celého řešení v reálném provozu vozidla.
+
+
+
+% Úvod studentské práce, např\,\dots
+
+% Nečíslovaná kapitola Úvod obsahuje \uv{seznámení} čtenáře s~problematikou práce.
+% Typicky se zde uvádí:
+% (a) do jaké tematické oblasti práce spadá, (b) co jsou hlavní cíle celé práce a (c) jakým způsobem jich bylo dosaženo.
+% Úvod zpravidla nepřesahuje jednu stranu.
+% Poslední odstavec Úvodu standardně představuje základní strukturu celého dokumentu.
+
+% Tato práce se věnuje oblasti \acs{DSP} (\acl{DSP}), zejména jevům, které nastanou při nedodržení Nyquistovy podmínky pro \ac{symfvz}.%
+% \footnote{Tato věta je pouze ukázkou použití příkazů pro sazbu zkratek.}
+
+% Šablona je nastavena na \emph{dvoustranný tisk}.
+% Nebuďte překvapeni, že ve vzniklém PDF jsou volné stránky.
+% %Je to proto, aby důležité stránky jako např.\ začátky kapitol začínaly po vytisknutí a svázání vždy na pravé straně.
+% %
+% Pokud máte nějaký závažný důvod sázet (a~zejména tisknout) jednostranně, nezapomeňte si přepnout volbu \texttt{twoside} na \texttt{oneside}!

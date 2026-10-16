@@ -4,6 +4,7 @@
 
 #include "display.h"
 #include "temperature.h"
+#include "bitmaps.h"
 
 #include <u8g2.h>
 #include "u8g2_esp32_hal.h"
@@ -43,7 +44,10 @@ void display_init(void) {
 void speed(void){
   u8g2_ClearBuffer(&u8g2);
   u8g2_SetFont(&u8g2, u8g2_font_6x12_te);
-  u8g2_DrawUTF8(&u8g2, 0, 32, "Rychlost:");
+
+  u8g2_DrawXBM(&u8g2, 0, 0, 128, 64, test);
+
+  u8g2_DrawUTF8(&u8g2, 0, 58, "Potom ti poviem");
   u8g2_SendBuffer(&u8g2);
 
   //vTaskDelay(pdMS_TO_TICKS(50));
