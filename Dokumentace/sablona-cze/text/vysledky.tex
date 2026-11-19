@@ -1,5 +1,67 @@
-\chapter{Návrh a realizace palubního počítače}
+\chapter{Výběr hardwarových komponent}
 
+Při volbě součástkové základny pro navrhovaný palubní počítač byl kladen důraz na spolehlivost v automobilovém prostředí, 
+dostatečný výpočetní výkon pro zpracování přerušení v reálném čase, nízkou pořizovací cenu a dobrou dostupnost na trhu. 
+Následující podkapitoly shrnují klíčové komponenty zvolené pro realizaci funkčního vzorku.
+
+\section{Mikrokontrolér}
+
+Jako řídicí prvek celého systému byl zvolen modul ESP32 od společnosti Espressif Systems. 
+Srdcem tohoto modulu je dvoujádrový 32bitový mikroprocesor Xtensa LX6 s volitelnou taktovací frekvencí až 240 MHz a interní pamětí SRAM o velikosti 520 kB. 
+Oproti tradičním osmibitovým mikrokontrolérům (např. ATmega328P z platformy Arduino) nabízí ESP32 zásadní výhody pro aplikaci palubního počítače:
+
+\begin{enumerate}
+    \item \textbf{Dvoujádrová architektura a podpora FreeRTOS:}Umožňuje striktně oddělit časově kritické úlohy. Například oddělení měření šířky vstřikovacích impulzů s 
+    mikrosekundovým rozlišením a čtení pulzů rychlosti pomocí hardwarových přerušení či periferie Pulse Counter,
+    od úloh s nižší prioritou, jako je překreslování grafického displeje a přepočet průměrných hodnot.
+    \item \textbf{Hardwarové periferie a konektivita:} Modul disponuje hardwarovou podporou sběrnic I2C, SPI a UART. 
+    Integrovaný bezdrátový modul Wi-Fi a Bluetooth Low Energy navíc otevírá možnost budoucího rozšíření systému o bezdrátový export jízdních logů do mobilního 
+    telefonu či aktualizaci firmwaru bez nutnosti demontáže přístroje z palubní desky.
+\end{enumerate} 
+
+Přestože mikrokontrolér ESP32 obsahuje integrovaný 12bitový analogově-digitální převodník, 
+je tato interní periferie známá svou nelinearitou na okrajích měřicího rozsahu a vyšší citlivostí na šum napájecí větve. 
+Z tohoto důvodu bylo pro měření analogových veličin rozhodnuto o nasazení externího 16bitového sigma-delta A/D převodníku ADS1115 komunikujícího po sběrnici I2C. 
+Převodník ADS1115 disponuje integrovaným zdrojem referenčního napětí, programovatelným zesilovačem a čtyřmi multiplexovanými vstupy, 
+což zajišťuje vysokou přesnost a teplotní stabilitu měření.
+
+\section{Zobrazovací jednotka}
+
+Pro přehledné zobrazení provozních parametrů za jízdy je vyžadován displej s vysokým kontrastem, širokými pozorovacími úhly a dobrou čitelností jak na přímém slunci, 
+tak při noční jízdě.
+
+Pro toto rozhraní byl zvolen grafický monochromatický OLED displej s řadičem SH1106 a rozlišením 128 × 64 obrazových bodů. 
+Technologie OLED nevyžaduje celoplošné podsvícení, neboť světlo emitují přímo jednotlivé aktivní pixely. 
+Díky tomu displej dosahuje řádově vyššího kontrastu než dobové pasivní LCD displeje a neoslňuje řidiče při nočním provozu. 
+Komunikace po dvouvodičové sběrnici I2C navíc minimalizuje počet vodičů vedených k displeji a umožňuje sdílet sběrnici se zmíněným A/D převodníkem ADS1115.
+
+\section{Senzory a napájecí moduly}
+
+Zbytek hardwarové architektury tvoří obvody pro úpravu signálů z vozidla, pomocné senzory a dvoustupňová napájecí kaskáda:
+
+\begin{enumerate}
+    \item \textbf{Napájecí část:} Palubní síť vozidla Škoda Felicia vykazuje za běhu alternátoru napětí v rozmezí 13,5 až 14,4 V. 
+Pokud by byl pro snížení tohoto napětí na úroveň 3,3 V použit pouze lineární stabilizátor, mohlo by docházet při odběru mikrokontroléru ESP32 k 
+tepelným ztrátám v řádu nižších jednotek wattů. Napájecí obvod je proto navržen jako dvoustupňový. První stupeň tvoří spínaný snižující měnič LM2596S-5 s vysokou účinností, 
+který sráží palubní napětí na mezilehlou úroveň 5 V. Druhý stupeň tvoří lineární LDO stabilizátor LD1117V33, 
+jenž z 5V větve generuje vyhlazené napětí 3,3 V s minimálním zvlněním pro napájení mikrokontroléru, převodníku ADS1115 a displeje.
+    \item \textbf{Snímání vstřikovačů a otáček:} Pro galvanické oddělení spínaných impulzů vstřikovacího ventilu od logické části mikrokontroléru byl zvolen 
+    fototranzistorový optočlen PC817. Vstupní infračervená LED optočlenu je chráněna omezovacím rezistorem a antiparalelní diodou 1N4001 proti záporným indukčním 
+    špičkám vznikajícím při rozepnutí vinutí vstřikovače.
+    \item \textbf{Snímání rychlosti:} Pro odečet otáček mechanického náhonu rychloměru byl vybrán unipolární Hallův spínač TLE4905L od společnosti Infineon, 
+    vyvinutý pro automobilové aplikace. Snímač reaguje na magnetické pole rotujícího magnetu v přístrojovém štítu a na svém výstupu s otevřeným kolektorem generuje 
+    obdélníkové impulzy odpovídající ujeté dráze.
+    \item \textbf{Snímání teploty:} Měření venkovní teploty zajišťuje NTC termistor zapojený v odporovém děliči. 
+\end{enumerate}
+
+
+\chapter{Návrh hardwaru}
+
+\chapter{Softwarová implementace}
+
+\chapter{Konstrukční řešení a implementace do vozidla}
+
+\chapter{Oživení, testování a kalibrace}
 
 
 

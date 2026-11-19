@@ -4,6 +4,7 @@
 
 #include "display.h"
 #include "temperature.h"
+#include "battvolt.h"
 #include "bitmaps.h"
 
 #include <u8g2.h>
@@ -28,12 +29,7 @@ void display_init(void) {
 
   u8g2_SetFont(&u8g2, u8g2_font_6x12_te);
 
-  u8g2_DrawUTF8(&u8g2, 10, 14, "Dobrý den,");
-  u8g2_DrawUTF8(&u8g2, 10, 28, "Palubní počítač");
-  u8g2_DrawUTF8(&u8g2, 10, 42, "Škoda Felicia");
-  u8g2_DrawUTF8(&u8g2, 10, 56, "V 1.0");
-
-  u8g2_DrawFrame(&u8g2, 0, 0, 128, 64);
+  u8g2_DrawXBM(&u8g2, 0, 0, 128, 64, uvod);
   
   u8g2_SendBuffer(&u8g2);
   vTaskDelay(pdMS_TO_TICKS(2000));
@@ -45,9 +41,8 @@ void speed(void){
   u8g2_ClearBuffer(&u8g2);
   u8g2_SetFont(&u8g2, u8g2_font_6x12_te);
 
-  u8g2_DrawXBM(&u8g2, 0, 0, 128, 64, test);
-
-  u8g2_DrawUTF8(&u8g2, 0, 58, "Potom ti poviem");
+  //u8g2_DrawXBM(&u8g2, 0, 0, 128, 64, test);
+  u8g2_DrawUTF8(&u8g2, 0, 32, "Rychlost:");
   u8g2_SendBuffer(&u8g2);
 
   //vTaskDelay(pdMS_TO_TICKS(50));
@@ -71,10 +66,15 @@ void engtemp(void){
   //vTaskDelay(pdMS_TO_TICKS(50));
 }
 
-void battvolt(void){
+void battvolt(void){ 
+  float meas = battvolt_real();
+  char text_buffer1[32];
+  snprintf(text_buffer1, sizeof(text_buffer1), "Napětí v síti: %.2f V", meas);
+
+
   u8g2_ClearBuffer(&u8g2);
   u8g2_SetFont(&u8g2, u8g2_font_6x12_te);
-  u8g2_DrawUTF8(&u8g2, 0, 32, "Napětí baterie:");
+  u8g2_DrawUTF8(&u8g2, 0, 32, text_buffer1);
   u8g2_SendBuffer(&u8g2);
 
   //vTaskDelay(pdMS_TO_TICKS(50));
@@ -117,12 +117,13 @@ void temp(void){
   if(temp > 20){
     snprintf(text_buffer1, sizeof(text_buffer1), "Teplota: %.1f °C", temp);
     snprintf(text_buffer2, sizeof(text_buffer2), "Je více, než 20 °C");
-  }
+  } 
 
   u8g2_ClearBuffer(&u8g2);
   u8g2_SetFont(&u8g2, u8g2_font_6x12_te);
   u8g2_DrawUTF8(&u8g2, 0, 32, text_buffer1);
   u8g2_DrawUTF8(&u8g2, 0, 47, text_buffer2);
+  
   u8g2_SendBuffer(&u8g2);
 
   //vTaskDelay(pdMS_TO_TICKS(50));
