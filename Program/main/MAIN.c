@@ -6,7 +6,7 @@
 
 #include "display.h"
 #include "button.h"
-#include "temperature.h"
+#include "rpm.h"
 
 #include <driver/i2c.h>
 #include <esp_log.h>
@@ -31,6 +31,7 @@ void app_main(void)
 
     display_init();
     button_init();
+    rpm_init();
 
     while (1)
     {

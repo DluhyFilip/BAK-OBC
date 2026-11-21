@@ -1,14 +1,4 @@
-#include <esp_log.h>
-#include <freertos/FreeRTOS.h>
-#include <freertos/task.h>
-
 #include "display.h"
-#include "temperature.h"
-#include "battvolt.h"
-#include "bitmaps.h"
-
-#include <u8g2.h>
-#include "u8g2_esp32_hal.h"
 
 u8g2_t u8g2;
 
@@ -49,9 +39,14 @@ void speed(void){
 }
 
 void rpm(void){
+  int meas = rpm_meas();
+  char text_buffer1[32];
+  snprintf(text_buffer1, sizeof(text_buffer1), "Otáčky motoru: %d", meas);
+
+
   u8g2_ClearBuffer(&u8g2);
   u8g2_SetFont(&u8g2, u8g2_font_6x12_te);
-  u8g2_DrawUTF8(&u8g2, 0, 32, "Otáčky motoru:");
+  u8g2_DrawUTF8(&u8g2, 0, 32, text_buffer1);
   u8g2_SendBuffer(&u8g2);
 
   //vTaskDelay(pdMS_TO_TICKS(50));

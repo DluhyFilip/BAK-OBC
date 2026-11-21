@@ -1,11 +1,5 @@
 #include "temperature.h"
 
-#include <driver/i2c.h>
-#include <freertos/FreeRTOS.h>
-#include <freertos/task.h>
-#include <esp_log.h>
-#include <math.h>
-
  int16_t temp_raw(void){
     uint8_t config[3] = {ADS1115_REG_CONFIG, // Pointer Byte
                         0xC3, //MSB byte

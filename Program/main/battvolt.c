@@ -1,9 +1,5 @@
 #include "battvolt.h"
 
-#include <driver/i2c.h>
-#include <freertos/FreeRTOS.h>
-#include <freertos/task.h>
-#include <math.h>
 
 int16_t battvolt_raw(void){
 

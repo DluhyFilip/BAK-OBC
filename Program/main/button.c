@@ -1,8 +1,3 @@
-#include <driver/gpio.h>
-#include <freertos/FreeRTOS.h>
-#include <freertos/queue.h>
-#include <esp_attr.h>
-
 #include "button.h"
 
 QueueHandle_t button_queue = NULL;
